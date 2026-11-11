@@ -8,6 +8,7 @@ B = 0.0
 
 while True:
     canvas = [" "] * width * height # сетка
+    z_buffer = [-9999.0] * width * height
 
     x = -2.0
     while x <= 2.0:
@@ -28,7 +29,9 @@ while True:
 
             if 0 < screen_x < 59 and 0 < screen_y < 39:
                 index = screen_y * width + screen_x
-                canvas[index] = "@" # передняя грань
+                if new_z > z_buffer[index]:
+                    z_buffer[index] = new_z
+                    canvas[index] = "#" # передняя грань
 
             #задняя стенка
             z = -2.0
@@ -44,7 +47,9 @@ while True:
 
             if 0 < screen_x < 59 and 0 < screen_y < 39:
                 index = screen_y * width + screen_x
-                canvas[index] = "." # задняя грань
+                if new_z > z_buffer[index]:
+                    z_buffer[index] = new_z                
+                    canvas[index] = "." # задняя грань
 
             y += 0.1
         x += 0.1
@@ -66,7 +71,9 @@ while True:
 
             if 0 < screen_x < 59 and 0 < screen_y < 39:
                 index = screen_y * width + screen_x
-                canvas[index] = "@"
+                if new_z > z_buffer[index]:
+                    z_buffer[index] = new_z
+                    canvas[index] = "~"
 
             #левая стенка
             x_side = -2.0
@@ -80,7 +87,9 @@ while True:
 
             if 0 < screen_x < 59 and 0 < screen_y < 39:
                 index = screen_y * width + screen_x
-                canvas[index] = "#"
+                if new_z > z_buffer[index]:
+                    z_buffer[index] = new_z
+                    canvas[index] = "*"
 
             z += 0.1
         y += 0.1
@@ -102,7 +111,9 @@ while True:
 
             if 0 < screen_x < 59 and 0 < screen_y < 39:
                 index = screen_y * width + screen_x
-                canvas[index] = "="
+                if new_z > z_buffer[index]:
+                    z_buffer[index] = new_z
+                    canvas[index] = "+"
 
             #ижняя стенка
             y_side = -2.0
@@ -116,7 +127,9 @@ while True:
 
             if 0 < screen_x < 59 and 0 < screen_y < 39:
                 index = screen_y * width + screen_x
-                canvas[index] = "="
+                if new_z > z_buffer[index]:
+                    z_buffer[index] = new_z
+                    canvas[index] = "%"
 
             z += 0.1
         x += 0.1
